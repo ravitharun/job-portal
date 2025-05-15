@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Jobs", href: "/Job/Search", current: false },
-  { name: "Saved Jobs", href: "#", current: false },
+  { name: "Saved Jobs", href: "/Job/Profile", current: false },
 ];
 
 function classNames(...classes) {
