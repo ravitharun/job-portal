@@ -28,27 +28,34 @@ function SideMenu({ data }) {
     },
   ];
 
-  // Educational
   return (
-    <div className="w-full md:w-64 bg-gray-50 border-r border-gray-200 p-6">
-      <h2 className="text-xl font-bold mb-6 border-b pb-3">Profile Steps</h2>
-      <nav className="flex flex-col space-y-3 text-gray-700">
-        {steps.map(({ name,url, icon: Icon, optionalText }) => (
-          <Link to={url}>
+    <div className="w-full md:w-70 bg-gray-50 p-6 rounded-lg shadow-md overflow-hidden">
+      <h2 className="text-xl font-semibold mb-5 text-gray-900 border-b border-gray-300 pb-3">
+        Profile Steps
+      </h2>
+      <nav className="flex flex-col space-y-3">
+        {steps.map(({ name, url, icon: Icon, optionalText }) => (
+          <Link to={url} key={name} className="group">
             <button
-              key={name}
-              className={`text-left py-2 px-4 rounded-md font-semibold flex items-center justify-between hover:bg-gray-100 ${
-                data == name ? "text-black bg-blue-200" : ""
-              }`}
+              className={`w-full flex items-center justify-between p-3 rounded-md
+                ${
+                  data === name
+                    ? "bg-white shadow-sm border-l-4 border-blue-600 text-blue-700 font-semibold"
+                    : "bg-transparent text-gray-700 hover:bg-white hover:shadow-sm hover:border-l-4 hover:border-blue-300"
+                }
+                transition duration-200 ease-in-out`}
+              style={{ outline: "none" }}
             >
-              <div className="flex items-center space-x-3">
-                <Icon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+              <div className="flex items-center space-x-2">
+                <Icon
+                  className={`h-5 w-5 flex-shrink-0
+                    ${data === name ? "text-blue-600" : "text-gray-400 group-hover:text-blue-500"}
+                  `}
+                />
                 <span>{name}</span>
               </div>
               {optionalText && (
-                <span className="text-sm italic text-gray-500">
-                  {optionalText}
-                </span>
+                <span className="text-sm italic text-gray-400">{optionalText}</span>
               )}
             </button>
           </Link>

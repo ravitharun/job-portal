@@ -25,7 +25,7 @@ function Profile() {
 
   <div className="flex mt-12 max-w-7xl mx-auto">
     {/* Side Menu - fixed width and sticky on the left */}
-    <div className="w-64 p-6 border-r border-gray-200 sticky top-20 h-screen">
+    <div className="w-64 p-6 sticky top-20 h-screen">
       <SideMenu />
     </div>
 
@@ -33,7 +33,7 @@ function Profile() {
     <div className="w-16"></div> {/* This is the gap */}
 
     {/* Form on the right, takes remaining space */}
-    <div className="flex-1 p-10 bg-white rounded-lg shadow-lg">
+    <div className="flex-1 p-10  rounded-lg shadow-lg">
       <div className="flex items-center mb-6 space-x-4">
         <img
           src="https://www.glassdoor.co.in/assets/images/profiles-next/page-headers/musicians.png"

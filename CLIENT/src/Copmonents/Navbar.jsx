@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Jobs", href: "/Job/Search", current: false },
-  { name: "Saved Jobs", href: "/Job/Profile", current: false },
+  { name: "Saved Jobs", href: "/Job/jobs", current: false },
 ];
 
 function classNames(...classes) {
@@ -89,7 +89,7 @@ export default function Navbar() {
               >
                 <MenuItem>
                   <a
-                    href="#"
+                    href="/Job/Profile"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Your Profile
