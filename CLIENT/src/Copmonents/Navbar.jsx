@@ -8,20 +8,28 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Jobs", href: "/Job/Search", current: false },
-  { name: "Saved Jobs", href: "/Job/jobs", current: false },
-];
+// const Login = localStorage.getItem("Login");
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-const Login = localStorage.getItem("Login");
-console.log(Login);
 export default function Navbar() {
+  const navigation = [
+    { name: "Home", href: "/", current: true },
+    { name: "Jobs", href: "/search", current: false },
+    { name: "Saved Jobs", href: "/Job/jobs", current: false },
+  ];
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+  const [Login, Setlogin] = useState(false);
+
+  const LoGout = () => {
+    const Logout = localStorage.removeItem("TOKEN");
+    Setlogin(true);
+    console.log("logout" + Logout);
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -95,9 +103,9 @@ export default function Navbar() {
                     Your Profile
                   </a>
                 </MenuItem>
-              
+
                 <MenuItem>
-                  {Login === true ? (
+                  {Login == true ? (
                     <Link
                       to="/job/Login"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
@@ -106,7 +114,7 @@ export default function Navbar() {
                     </Link>
                   ) : (
                     <button
-                      onClick={() => alert("hi")}
+                      onClick={LoGout}
                       className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-100 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded-md transition-colors hover:cursor-pointer"
                     >
                       Log Out

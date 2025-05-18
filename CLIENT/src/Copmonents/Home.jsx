@@ -10,7 +10,9 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import AuthChecking from "./Auth/AuthChecking";
-import { useEffect } from "react";
+import CheckLocal from "./Auth/CheckLocal";
+
+
 
 function Home() {
   // company url to display
@@ -147,20 +149,12 @@ function Home() {
   };
 
   
-  useEffect(() => {
-    const validate = () => {
-      const token = localStorage.getItem("TOKEN");
-      if (!token) {
-        // Redirect to login page or show a message
-        window.location.href = "job/Login";
-      }
-    };
-    validate();
-  }, []);
+
 
   return (
     <>
       <AuthChecking />
+      <CheckLocal />
       <div className="sticky top-0 z-50 bg-white shadow">
         <Navbar />
       </div>

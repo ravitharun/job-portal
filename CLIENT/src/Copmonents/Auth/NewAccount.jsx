@@ -9,6 +9,7 @@ function NewAccount() {
   const [Email, Setemail] = useState("");
   const [Password, Setpassowrd] = useState("");
   const [ConfirmPwd, SetConfirmPwd] = useState("");
+  const [role, Setrole] = useState("");
   const navigate = useNavigate();
   // adding new user
   const CreateAccount = async (e) => {
@@ -18,12 +19,15 @@ function NewAccount() {
       email: Email,
       password: Password,
       confirm_password: ConfirmPwd,
+      role: role,
     };
+    console.log(Newuser)
     if (
       Newuser.name == "" ||
       Newuser.email == "" ||
       Newuser.password == "" ||
-      Newuser.confirm_password == ""
+      Newuser.confirm_password == "" ||
+      Newuser.role == ""
     ) {
       toast.error("Please fill all fields.");
     } else {
@@ -134,6 +138,34 @@ function NewAccount() {
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Choose Role
+              </label>
+              <div className="flex items-center space-x-6">
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="Recruiter"
+                    onChange={() => Setrole("Recruiter")}
+                    className="form-radio text-blue-600"
+                  />
+                  <span className="ml-2 text-gray-700">Recruiter</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="Finder"
+                    onChange={() => Setrole("Finder")}
+                    className="form-radio text-blue-600"
+                  />
+                  <span className="ml-2 text-gray-700">Finder</span>
+                </label>
+              </div>
+            </div>
+
             <button
               type="submit"
               onClick={CreateAccount}

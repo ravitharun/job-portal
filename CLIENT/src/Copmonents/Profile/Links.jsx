@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../Navbar";
 import SideMenu from "./SideMenu";
 import { useNavigate } from "react-router-dom";
+import AuthChecking from "../Auth/AuthChecking";
+import CheckLocal from "../Auth/CheckLocal";
 
 function Links() {
   const data = "Online Presence";
@@ -16,6 +18,8 @@ function Links() {
   };
   return (
     <>
+      <AuthChecking />
+      <CheckLocal />
       {/* Navbar */}
       <div className="sticky top-0 z-50 bg-white shadow-md">
         <Navbar />
@@ -82,9 +86,7 @@ function Links() {
           <div>
             {/* Languages Known communication   */}
             <label className="block text-sm font-medium text-gray-700 mb-2">
-    Expected Salary (CTC)
-
-
+              Expected Salary (CTC)
             </label>
             <input
               type="text"
@@ -118,7 +120,6 @@ function Links() {
               className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
           </div>
-
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-6">

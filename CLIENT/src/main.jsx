@@ -12,11 +12,17 @@ import Skills from "./Copmonents/Profile/Skills.jsx";
 import Workexp from "./Copmonents/Profile/Workexp.jsx";
 import Resume from "./Copmonents/Profile/Resume.jsx";
 import Links from "./Copmonents/Profile/Links.jsx";
+import Jobs from "./Copmonents/Jobs/Jobs.jsx";
+import Jobdetils from "./Copmonents/Jobs/Jobdetils.jsx";
+import SavedJob from "./Copmonents/Jobs/SavedJob.jsx";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/Job/Search" element={<Job />} />
+    
+      <Route path="/search" element={<Jobs />} />
+      <Route path="/job/Details" element={<Jobdetils />} />
+      <Route path="/Job/jobs" element={<SavedJob />} />
       <Route path="/Job/Profile" element={<Profile />} />
       <Route path="/Job/Skills" element={<Skills />} />
       <Route path="/Job/WorkExp" element={<Workexp />} />

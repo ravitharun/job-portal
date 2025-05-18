@@ -1,8 +1,40 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 import SideMenu from "./SideMenu";
-
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import AuthChecking from "../Auth/AuthChecking";
+import CheckLocal from "../Auth/CheckLocal";
 function EducationForm() {
+  const location = useLocation();
+  const {
+    FullName: FullName,
+    Email: Email,
+    PhoneNumber: PhoneNumber,
+  } = location.state || {};
+  const PrevData = [FullName, Email, PhoneNumber];
+  // getting data
+  const [SchooleName, SetSchooleName] = useState("");
+  const [PreCollegeName, SetPreCollgeName] = useState("");
+  const [Degree, SetDegree] = useState("");
+  const [SchoolMarks, SetSchoolMarks] = useState("");
+  const [SchoolGrade, setSchoolGrade] = useState("");
+  const [PreCOllegeMarks, SetPreCollegeMarks] = useState("");
+  const [CollegeGrade, SetPreCollegeGrade] = useState("");
+  const [DegreeMarks, SetDegreeMarks] = useState("");
+  const [DegreeType, SetDegreeType] = useState("");
+  const CurrData = {
+    SchooleName,
+    PreCollegeName,
+    Degree,
+    SchoolMarks,
+    SchoolGrade,
+    PreCOllegeMarks,
+    CollegeGrade,
+    DegreeMarks,
+    DegreeType,
+  };
+  // types of degree in array[]
   const Degrees = [
     "B.Tech (Bachelor of Technology)",
     "M.Tech (Master of Technology)",
@@ -18,18 +50,57 @@ function EducationForm() {
   ];
 
   const data = "Education";
+  // navigation
   const navigate = useNavigate();
-
+  // going to next page and check the empty field
   const Next = () => {
-    navigate("/Job/Skills");
+    if (
+      CurrData.SchooleName == "" &&
+      CurrData.PreCollegeName == "" &&
+      CurrData.Degree == "" &&
+      CurrData.SchoolMarks == "" &&
+      CurrData.SchoolGrade == "" &&
+      CurrData.PreCOllegeMarks == "" &&
+      CurrData.CollegeGrade == "" &&
+      CurrData.DegreeMarks == "" &&
+      CurrData.DegreeType == ""
+    ) {
+      toast.error("Fill the Details!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      const combinedData = { ...PrevData, ...CurrData };
+      navigate("/Job/Skills", { state: combinedData });
+    }
   };
-
+  // going back to prevForm
   const PrevForm = () => {
     navigate("/Job/Profile");
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+        <AuthChecking />
+      <CheckLocal />
       <div className="sticky top-0 z-50 bg-white shadow-md">
         <Navbar />
       </div>
@@ -45,8 +116,9 @@ function EducationForm() {
 
         {/* Form area */}
         <div className="flex-1 p-10 rounded-lg shadow-lg bg-white">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900">Educational Background</h2>
-
+          <h2 className="text-3xl font-bold mb-6 text-gray-900">
+            Educational Background
+          </h2>
           <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 10th School Name */}
             <div>
@@ -55,11 +127,11 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetSchooleName(e.target.value)}
                 placeholder="Enter school name"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-
             {/* 10th Percentage/Grade */}
             <div>
               <label className="block mb-2 font-semibold text-gray-700">
@@ -67,6 +139,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetSchoolMarks(e.target.value)}
                 placeholder="Ex: 95% or 9.5 CGPA"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -79,6 +152,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => setSchoolGrade(e.target.value)}
                 placeholder="Ex: A+"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -91,6 +165,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetPreCollgeName(e.target.value)}
                 placeholder="Enter school name"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -103,6 +178,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetPreCollegeMarks(e.target.value)}
                 placeholder="Ex: 90% or 9.0 CGPA"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -115,6 +191,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetPreCollegeGrade(e.target.value)}
                 placeholder="Ex: A"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -127,6 +204,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetDegree(e.target.value)}
                 placeholder="Ex: ABC University"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -139,6 +217,7 @@ function EducationForm() {
               </label>
               <select
                 className="w-full border border-gray-300 rounded-md px-4 py-3 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => SetDegreeType(e.target.value)}
               >
                 {Degrees.map((degree, idx) => (
                   <option key={idx} value={degree}>
@@ -155,6 +234,7 @@ function EducationForm() {
               </label>
               <input
                 type="text"
+                onChange={(e) => SetDegreeMarks(e.target.value)}
                 placeholder="Ex: 8.5 or 85%"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 import SideMenu from "./SideMenu";
+import AuthChecking from "../Auth/AuthChecking";
+import CheckLocal from "../Auth/CheckLocal";
 
 function Profile() {
   const [ProfileCheck, SetProfileCheck] = useState(false);
@@ -10,15 +12,21 @@ function Profile() {
   const [Email, SetEmail] = useState("");
   const [PhoneNumber, SetPhoneNumber] = useState("");
   const data = { FullName: FullName, Email: Email, PhoneNumber: PhoneNumber };
-  const [GetData, SetData] = useState({});
+
   const navigate = useNavigate();
+  // const data = { FullName, Email, PhoneNumber };
+  
   const Next = (event) => {
     event.preventDefault();
-    navigate("/Job/EducationForm", { state: GetData });
-    SetData(data);
+    navigate("/Job/EducationForm", { state: data });
+    // navigate("/Job/EducationForm", { state: GetData });
+    // SetData(data);
   };
+
   return (
 <>
+  <AuthChecking />
+      <CheckLocal />
   <div className="sticky top-0 z-50 bg-white shadow-md">
     <Navbar />
   </div>
@@ -55,6 +63,7 @@ function Profile() {
           <input
             type="text"
             id="fullName"
+          
             name="FullName"
             onChange={(e) => SetFullName(e.target.value)}
             placeholder="John Doe"

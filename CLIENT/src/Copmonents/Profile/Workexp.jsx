@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../Navbar";
 import SideMenu from "./SideMenu";
 import { useNavigate } from "react-router-dom";
+import AuthChecking from "../Auth/AuthChecking";
+import CheckLocal from "../Auth/CheckLocal";
 
 function Workexp() {
   const data = "Work Experience";
@@ -17,11 +19,13 @@ function Workexp() {
   };
   return (
     <>
+      {" "}
+      <AuthChecking />
+      <CheckLocal />
       {/* Navbar */}
       <div className="sticky top-0 z-50 bg-white shadow-md">
         <Navbar />
       </div>
-
       {/* Layout */}
       <div className="flex max-w-7xl mx-auto mt-8 px-4 space-x-8">
         {/* Side Menu */}

@@ -7,6 +7,8 @@ import {
   GlobeAltIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import AuthChecking from "../Auth/AuthChecking";
+import CheckLocal from "../Auth/CheckLocal";
 
 function SideMenu({ data }) {
   const steps = [
@@ -30,6 +32,8 @@ function SideMenu({ data }) {
 
   return (
     <div className="w-full md:w-70 bg-gray-50 p-6 rounded-lg shadow-md overflow-hidden">
+        <AuthChecking />
+            <CheckLocal />
       <h2 className="text-xl font-semibold mb-5 text-gray-900 border-b border-gray-300 pb-3">
         Profile Steps
       </h2>
