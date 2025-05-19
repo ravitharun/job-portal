@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/jobWebsite', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log("MongoDB Connection Error:", err));
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log("MongoDB Connection Error:", err));
 
 const UserSchema = new mongoose.Schema({
-    name: String,
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    confirm_password: { type: String, required: true },
-    role:{type:String},
-    createdAt: { type: Date, default: Date.now },
+  name: String,
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  confirm_password: { type: String, required: true },
+  role: { type: String },
+  createdAt: { type: Date, default: Date.now },
 });
 const JobsSchema = new mongoose.Schema({
   company_name: { type: String },
@@ -77,8 +77,9 @@ const SavedJobsSchema = new mongoose.Schema({
   employment_type: { type: String },
   job_ref_number: { type: String },
   relocation_assistance: { type: String },
+  email: { type: String }
 });
 const User = mongoose.model('User', UserSchema);
 const JobData = mongoose.model('JobsSchema', JobsSchema);
 const SaveJob = mongoose.model('savedJob', SavedJobsSchema);
-module.exports = { User, JobData,SaveJob };
+module.exports = { User, JobData, SaveJob };

@@ -12,6 +12,7 @@ function Jobdetils() {
   const location = useLocation();
   const [details, setDetails] = useState({});
   const naivgate = useNavigate("");
+  const email = localStorage.getItem("user_email");
   useEffect(() => {
     const Display = () => {
       setDetails(location.state || {});
@@ -31,36 +32,33 @@ function Jobdetils() {
   const Save = async (DataJOb) => {
     const sendJob = await axios.post("http://localhost:3000/Job/saved", {
       DataJOb,
+      email,
     });
-    if(sendJob.data.message==sendJob.data.message){
-      toast.warning(sendJob.data.message)
-      console.log(sendJob.data.message)
+    if (sendJob.data.Alertmessage == "The Job Is Already saved") {
+      toast.info(sendJob.data.message);
     }
-    else if(sendJob.data.Errormessage==sendJob.data.Errormessage) {
-      toast.warning(sendJob.data.Errormessage)
-    }
-    else{
-      // toast.success(sendJob.data.message)
-      toast.success("You are Login");
+
+    toast.success("You are Login");
+    setTimeout(() => {
       naivgate("/Job/jobs");
-    }
+    }, 1500);
   };
   return (
     <>
       <AuthChecking />
       <CheckLocal />
-           <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick={false}
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       {/* Navbar */}
       <div className="sticky top-0 z-50 bg-white shadow">
         <Navbar />

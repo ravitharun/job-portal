@@ -11,7 +11,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-// const Login = localStorage.getItem("Login");
+const Total_saved = localStorage.getItem("Total_saved");
 
 export default function Navbar() {
   const navigation = [

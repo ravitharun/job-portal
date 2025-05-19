@@ -5,6 +5,7 @@ var Data = require('../data.json');
 var cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
+
 require('dotenv').config();
 
 router.use(cors());
@@ -112,12 +113,12 @@ router.post("/Job/Login", async (req, res) => {
 
 // checking the  middleware function in that ese route
 router.get("/Job/Auth", async (req, res) => {
-  try {
-    // Your logic here
-  } catch (err) {
-    console.error("Error in /Job/Auth:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
+    try {
+        // Your logic here
+    } catch (err) {
+        console.error("Error in /Job/Auth:", err);
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
 });
 
 // insert the job data into database
@@ -191,27 +192,32 @@ router.get("/jobAll", async (req, res) => {
 // get data based on the id
 
 router.get("/job/:id", async (req, res) => {
+    const { id } = req.params;
     try {
-        const { id } = req.params;
+        if (id === "all") {
+            const jobs = await SaveJob.find({});
+            return res.json(jobs);
+        }
 
-
-        const response = await JobData.findById({ _id: id })
-        res.json({ message: response })
+        const job = await SaveJob.findById(id); // only if it's a real ObjectId
+        res.json({ message: job });
     } catch (error) {
-        console.log(error)
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
     }
-})
+});
+
 
 // saving the job into dat base
 
 router.post("/Job/saved", async (req, res) => {
     try {
-        const { DataJOb } = req.body;
+        const { DataJOb, email } = req.body;
         const Data = DataJOb
         const check_saved = await SaveJob.findOne({ company_name: Data.company_name })
         console.log("check_saved", check_saved)
         if (check_saved) {
-            res.json({ message: `The Job Is saved ${Data.company_name}` })
+            res.json({ Alertmessage: `The Job Is Already saved` })
         }
         else {
 
@@ -247,6 +253,7 @@ router.post("/Job/saved", async (req, res) => {
                 employment_type: Data.employment_type,
                 job_ref_number: Data.job_ref_number,
                 relocation_assistance: Data.relocation_assistance,
+                email: email
             });
 
             await job.save();
@@ -260,15 +267,36 @@ router.post("/Job/saved", async (req, res) => {
     }
 
 })
-router.get("/job/all", async (req, res) => {
-    try {
-        const resonse = await SaveJob.find();
-        console.log(resonse)
-        res.json({ message: resonse })
-    } catch (error) {
-        res.json({ message: error })
-    }
 
+
+
+router.get("/job/all", async (req, res) => {
+    const { email } = req.query;
+    console.log(email)
+    try {
+        const jobs = await SaveJob.find({ email: email });
+        console.log(jobs)
+        res.json({ message: jobs });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
+// reoving based on the id
+router.get("/job/Remove/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const existing = await SaveJob.findById(id);
+        if (!existing) {
+            return res.json({ message: "Saved job not found." });
+        }
+
+        await SaveJob.deleteOne({ _id: id });
+        res.json({ message: "Job deleted successfully." });
+    } catch (error) {
+        console.log("error", error)
+    }
 })
 
 module.exports = router;
